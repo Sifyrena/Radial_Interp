@@ -1,24 +1,20 @@
 
-# coding: utf-8
-
-# # Plotting Radial Intensity Profile of A Concentric Circle Pattern
-# 
-# 
-# ywan (December 2019)
-
-# In[93]:
+# Plotting Radial Intensity Profile of A Concentric Circle Pattern
 
 
+ywan (December 2019)
+
+
+```python
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator as RPI
+```
+
+## Generate Image
 
 
-# ## Generate Image
-
-# In[131]:
-
-
+```python
 xArray = np.arange(1200) # Pixel Width
 
 yArray = np.arange(800) # Pixel Height
@@ -36,23 +32,43 @@ Image = np.sin(0.3*(RArray/50+1)**2) + 0.1 * np.random.random(RArray.shape) # Wi
 
 plt.figure(figsize=(10,10))
 plt.imshow(Image, origin = 'upper',cmap = 'copper') 
+```
 
 
-# ## Quick Slices
-
-# In[137]:
 
 
+    <matplotlib.image.AxesImage at 0x7fb3daae4dd8>
+
+
+
+
+![png](output_3_1.png)
+
+
+## Quick Slices
+
+
+```python
 # Horizontal Slice
 
 plt.figure()
 
 plt.plot(yArray,Image[:,ImageCtr[1]])
+```
 
 
-# In[138]:
 
 
+    [<matplotlib.lines.Line2D at 0x7fb3d8c5cbe0>]
+
+
+
+
+![png](output_5_1.png)
+
+
+
+```python
 # Horizontal Slice
 
 plt.figure()
@@ -60,22 +76,32 @@ plt.figure()
 plt.plot(xArray,Image[ImageCtr[0],:])
 
 
-
-# ## Establish Interpolator
-
-# In[132]:
+```
 
 
+
+
+    [<matplotlib.lines.Line2D at 0x7fb3d8c44c88>]
+
+
+
+
+![png](output_6_1.png)
+
+
+## Establish Interpolator
+
+
+```python
 ImageInterp = RPI((yArray,xArray), Image, fill_value = 0, bounds_error = False)
+```
+
+## Interpolate and Plot
+
+If what you are looking is out of bounds, a value of zero will be returned.
 
 
-# ## Interpolate and Plot
-# 
-# If what you are looking is out of bounds, a value of zero will be returned.
-
-# In[133]:
-
-
+```python
 N = 20 # Number of Radial Cuts
 M = 400 # Number of Data Points
 
@@ -104,4 +130,15 @@ for i in range(N):
 plt.xlabel('Pixel Samples')
 plt.ylabel('Nominal Intensity')
 plt.plot(TestArrayTotal)
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7fb3da8b5c88>]
+
+
+
+
+![png](output_10_1.png)
 
